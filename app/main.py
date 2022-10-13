@@ -2,7 +2,7 @@ from fastapi import FastAPI, HTTPException
 
 from open_ai import generate_branding_snippet, generate_keywords
 
-# API File
+# API Source Code
 
 app = FastAPI()
 
