@@ -1,0 +1,4 @@
+.vscode
+infrastructure/lambda_base_layer/layer.zip
+app/Pipfile
+app/Pipfile.lock

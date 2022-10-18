@@ -1,10 +1,12 @@
 from fastapi import FastAPI, HTTPException
 
 from open_ai import generate_branding_snippet, generate_keywords
+from mangum import Mangum
 
 # API Source Code
 
 app = FastAPI()
+handler = Mangum(app)
 
 max_length = 32
 
@@ -12,7 +14,8 @@ max_length = 32
 def validate_input_length(prompt: str):
     if len(prompt) >= max_length:
         raise HTTPException(
-            status_code=400, detail=f"Input length is too long, please enter under {max_length} characters."
+            status_code=400,
+            detail=f"Input length is too long, please enter under {max_length} characters.",
         )
 
 
