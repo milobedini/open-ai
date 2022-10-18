@@ -2,6 +2,7 @@ import * as cdk from "aws-cdk-lib";
 import { Construct } from "constructs";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as dotenv from "dotenv";
+import * as apiGateway from "aws-cdk-lib/aws-apigateway";
 
 dotenv.config();
 
@@ -22,6 +23,14 @@ export class OpenaiInfrastructureStack extends cdk.Stack {
       environment: {
         OPENAI_API_KEY: process.env.OPENAI_API_KEY ?? "",
       },
+    });
+    const openAIApi = new apiGateway.RestApi(this, "OpenApi", {
+      restApiName: "OpenAI Demo API",
+    });
+
+    // Add proxy
+    openAIApi.root.addProxy({
+      defaultIntegration: new apiGateway.LambdaIntegration(apiLambda),
     });
   }
 }
